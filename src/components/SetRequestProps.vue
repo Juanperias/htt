@@ -1,11 +1,10 @@
 <template>
-  <n-select class="mt-4" v-model:value="modifyHeadersOrBody" size="small" :options="options" />
-  <div v-if="modifyHeadersOrBody == 'HEADERS'">
-    <SetHeaders />
-  </div>
-  <div v-else>
-    <SetBody />
-  </div>
+  <article class="w-full mt-4 px-8">
+    <n-select v-model:value="modifyHeadersOrBody" size="small" :options="options" />
+
+    <SetHeaders v-if="modifyHeadersOrBody == 'HEADERS'" />
+    <SetBody v-else />
+  </article>
 </template>
 
 <script setup lang="ts">
