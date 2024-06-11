@@ -1,43 +1,42 @@
 <template>
-  <n-space vertical justify="end">
+  <n-space class="w-full px-8" vertical justify="end">
+    <div class="flex justify-between w-full">
+      <div class="flex items-center">
+        <n-switch v-model:value="store.isJson">
+          <template #checked>
+            Json
+          </template>
+          <template #unchecked>
+            Text
+          </template>
+        </n-switch>
+      </div>
+  
+      <n-space justify="end" v-if="store.status == 200">
+        <p class="text-lg text-white">
+          Status: <span
+            class="font-light text-green-500 bg-[#8FFF8F50] px-2 py-1 rounded-md"
+            >{{ store.status }}</span>
+        </p>
+      </n-space>
+      <n-space v-else justify="start">
+        <p class="text-lg text-white">
+          Status: <span
+            class="font-light text-red-500 bg-[#FF6F6F50] px-2 py-1 rounded-md"
+            >{{ store.status }}</span>
+        </p>
+      </n-space>
+    </div>
 
-    <n-space justify="end" v-if="store.status == 200">
-      <n-gradient-text type="success" :size="25">
-        Status: {{ store.status }}
-      </n-gradient-text>
-    </n-space>
-    <n-space v-else justify="end">
-      <n-gradient-text :size="25" type="danger">
-        Status: {{ store.status }}
-      </n-gradient-text>
-    </n-space>
-
-    <n-space justify="end">
-      <n-switch v-model:value="store.isJson">
-        <template #checked>
-          Json
-        </template>
-        <template #unchecked>
-          Text
-        </template>
-      </n-switch>
-    </n-space>
-
-
-    <n-scrollbar style="max-height: 110px;" trigger="none">
+    <n-scrollbar class="h-full" trigger="none">
       <div v-if="store.isJson == true">
-        <n-gradient-text :size="24" type="warning">
-          {{ store.response }}
-        </n-gradient-text>
+        <JsonResponse :code="store.response"/>
       </div>
 
       <div v-else>
-        <n-gradient-text :gradient="{
-          from: 'rgb(85, 85, 85)',
-          to: 'rgb(170, 170, 170)'
-        }">
+        <p class="text-base text-white">
           {{ store.response }}
-        </n-gradient-text>
+        </p>
       </div>
     </n-scrollbar>
   </n-space>
@@ -45,7 +44,7 @@
 
 <script setup lang="ts">
 import { useResponseStore } from '../stores/responseStore';
+import JsonResponse from './JsonResponse.vue';
 
 const store = useResponseStore()
-
 </script>

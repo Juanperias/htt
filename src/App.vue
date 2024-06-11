@@ -1,14 +1,19 @@
 <template>
   <n-config-provider :theme="darkTheme">
-    <div class="m-7">
+    <main class="h-full">
       <RequestForm />
-      <SetRequestProps />
-      <WatchResponse />
-    </div>
+      <section class="flex w-full h-full justify-center gap-4">
+        <SetRequestProps />
+        <WatchResponse />
+      </section>
+    </main>
   </n-config-provider>
+
 </template>
 
 <script setup lang="ts">
+
+
 import RequestForm from './components/RequestForm.vue'
 import SetRequestProps from './components/SetRequestProps.vue';
 import WatchResponse from './components/WatchResponse.vue'

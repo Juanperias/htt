@@ -1,9 +1,13 @@
 <template>
-  <n-scrollbar style="max-height: 200px;" trigger="none" class="mt-4 mb-4">
-    <n-space v-for="(input, index) in store.headers" :key="index" class="mt-4">
-      <n-input type="text" placeholder="Header name" v-model:value.trim="input.name" />
-      <n-input type="text" placeholder="Header value" v-model:value="input.value" />
-    </n-space>
+  <n-scrollbar class="max-h-80 w-full h-full" trigger="none">
+    <div
+      v-for="(input, index) in store.headers" 
+      :key="index" 
+      class="flex gap-4 w-full mt-4"
+    >
+      <n-input class="w-full" type="text" placeholder="Header name" v-model:value.trim="input.name" />
+      <n-input class="w-full" type="text" placeholder="Header value" v-model:value="input.value" />
+  </div>
   </n-scrollbar>
   <n-space>
     <n-button strong secondary round type="primary" @click="store.addEmptyHeader">
