@@ -1,17 +1,8 @@
 <template>
   <section class="flex mx-8 my-4 gap-5 px-3 py-4 bg-zinc-900 rounded-lg">
-    <n-select
-      class="max-w-40"
-      v-model:value="requestStore.method"
-      :options="methods" 
-    />
-    <n-input 
-      type="text"
-      :round="true"
-      v-model:value="requestStore.url"
-      :maxlength="1000"
-      placeholder="https://example.com"
-    />
+    <n-select class="max-w-40" v-model:value="requestStore.method" :options="methods" />
+    <n-input type="text" :round="true" v-model:value="requestStore.url" :maxlength="1000"
+      placeholder="https://example.com" />
     <n-button class="max-w-24 w-full" :round="true" @click="makeRequest" type="primary">
       Go!
     </n-button>
@@ -21,7 +12,7 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api'
 import { useResponseStore } from '../stores/responseStore';
-import { IResponse } from '../types/iResponse';
+import { IResponse } from '../types/IResponse';
 import { useRequestStore } from '../stores/requestStore';
 
 const responseStore = useResponseStore()
@@ -58,6 +49,7 @@ async function makeRequest() {
     method: requestStore.method
   })
 
+  responseStore.setContentType(response.contentType)
   responseStore.setResponse(response.body)
   responseStore.setStatus(response.status)
 }

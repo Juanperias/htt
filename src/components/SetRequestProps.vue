@@ -1,5 +1,5 @@
 <template>
-  <article class="w-full mt-4 px-8">
+  <article class="w-96 mt-4 px-8">
     <n-select v-model:value="modifyHeadersOrBody" size="small" :options="options" />
 
     <SetHeaders v-if="modifyHeadersOrBody == 'HEADERS'" />

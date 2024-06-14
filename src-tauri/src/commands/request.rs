@@ -1,4 +1,5 @@
 use crate::{
+    fn_params::request_params::RequestParams,
     http_data::{header::Header, response::Response},
     utils::{
         request_delete::request_delete, request_get::request_get, request_patch::request_patch,
@@ -14,14 +15,18 @@ pub fn make_request(url: &str, headers: Vec<Header>, body: &str, method: &str) -
         parsed_headers.push((header.name, header.value));
     });
 
-    let response = match method {
-        "GET" => request_get(url, parsed_headers),
-        "POST" => request_post(url, body, parsed_headers),
-        "PUT" => request_put(url, body, parsed_headers),
-        "DELETE" => request_delete(url, body, parsed_headers),
-        "PATCH" => request_patch(url, body, parsed_headers),
-        _ => panic!("Method not found"),
+    let params = RequestParams {
+        url: url.to_string(),
+        body: body.to_string(),
+        headers: parsed_headers,
     };
 
-    response
+    match method {
+        "GET" => request_get(params),
+        "POST" => request_post(params),
+        "PUT" => request_put(params),
+        "DELETE" => request_delete(params),
+        "PATCH" => request_patch(params),
+        _ => panic!("Method not found"),
+    }
 }

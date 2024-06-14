@@ -1,16 +1,15 @@
 use ureq::OrAnyStatus;
 
-use crate::http_data::response::Response;
+use crate::{fn_params::request_params::RequestParams, http_data::response::Response};
 
-pub fn request_get(url: &str, headers: Vec<(String, String)>) -> Response {
-    let res = ureq::get(url)
-        .set_headers(headers)
+use super::parse_res::parse_res;
+
+pub fn request_get(http_params: RequestParams) -> Response {
+    let res = ureq::get(http_params.url.as_str())
+        .set_headers(http_params.headers)
         .call()
         .or_any_status()
         .expect("ERROR IN THE REQUEST");
 
-    Response {
-        status: res.status(),
-        body: res.into_string().expect("FAIL IN THE RESPONSE"),
-    }
+    parse_res(res)
 }

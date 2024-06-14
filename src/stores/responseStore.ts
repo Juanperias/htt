@@ -2,9 +2,10 @@ import { defineStore } from 'pinia'
 
 export const useResponseStore = defineStore('responseStore', {
   state: () => ({
-    response: '{ "message": "Hello!" }',
+    response: 'Welcome to htt!',
     status: 200,
-    isJson: true
+    isJson: false,
+    contentType: "text/html"
   }),
   actions: {
     setResponse(newResponse: string) {
@@ -15,6 +16,9 @@ export const useResponseStore = defineStore('responseStore', {
     },
     setIsJson(newIsJson: boolean) {
       this.isJson = newIsJson
+    },
+    setContentType(newContentType: string) {
+      this.contentType = newContentType
     }
   }
 })
